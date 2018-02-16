@@ -1,0 +1,177 @@
+---
+title: "SRT411A0"
+output:
+  pdf_document: default
+  word_document: default
+  html_document:
+    df_print: paged
+---
+This assignment was uploaded to github under username jthegrey. This assignment is basically to help understand the basics of R, as well as figure out how to use knitr to generate PDF's of the .Rmd file. 
+
+I followed this guide: https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf
+
+
+## 3.1 Calculator
+The percetage of my life I have spent at Seneca. Note: for this section the guide said to use 2014, but since the year is 2018 I used that number instead.
+```{r}
+((2018 - 2017) / (2018 - 1993)) *100 
+```
+
+## 3.2 Workspace
+Same as above, but used some variables.
+```{r}
+age = 2018 - 1993
+years_in_school = 2018 - 2017
+years_in_school/age * 100
+```
+
+## 3.4 Functions
+Compute the sum of 4, 5, 8 and 11 by first combining  them  into  a  vector  and  then  using  the function sum.
+```{r}
+nums = c(4,5,8,11)
+sum(nums)
+```
+## 3.5 Plots
+Plot 100 normal random numbers
+```{r}
+plot_nums = rnorm(100)
+plot(plot_nums)
+```
+## 4.0 Help Documentation
+Find help for the sqrt function.
+```{r}
+help(sqrt)
+```
+## 5.0 Scripts
+Script contents of firstscript.R:
+plot_nums = rnorm(100)
+plot(plot_nums)
+```{r}
+setwd("C:\\Users\\Hagop\\Desktop")
+source("firstscript.R")
+source("firstscript.R")
+source("firstscript.R")
+```
+## 6.2 Matrices
+Put  the  numbers  31  to  60  in  a  vector  named P and in a matrix with 6 rows and 5 columns named Q
+```{r}
+nums = seq(from=31, to=60, by=1)
+mat = matrix(data=nums, ncol=5)
+mat
+```
+## 6.3 Data Frames
+Make  a  script  file  which  constructs  three  random  normal  vectors  of  length  100.   Call  these vectors x1,x2 andx3. Make a data frame called t with three columns (called a , b and c) containing  respectively x1, x1+x2 and x1+x2+x3. Call the following functions for this data frame: plot(t) and sd(t).
+
+```{r}
+x1=rnorm(100)
+x2=rnorm(100)
+x3=rnorm(100)
+t= data.frame(a = x1, b= (x1+x2), c=(x1+x2+x3))
+plot(t)
+```
+
+sd(t) fails, so it was omitted.
+
+## 7.0 Graphics
+
+```{r}
+x1=rnorm(100)
+x2=rnorm(100)
+x3=rnorm(100)
+t= data.frame(a = x1, b= (x1+x2), c=(x1+x2+x3))
+
+plot(t$a, type="l", ylim=range(t),lwd=3, col=rgb(1,0,0,0.3))
+lines(t$b, type="s", lwd=2,col=rgb(0.3,0.4,0.3,0.9))
+points(t$c, pch=20, cex=4, col=rgb(0,0,1,0.3))
+```
+## 8.0 Reading and writing data files
+
+```{r}
+data1=read.table(file="tst1.txt", header=TRUE)
+data1
+data1[2] * 5
+write.table(data1,file="tst1.txt",row.names=FALSE)
+data1
+```
+## 9.0 Not Available Data
+
+```{r}
+mean(sqrt(rnorm(100)),na.rm =TRUE)
+```
+
+This section creates an error because the sqrt of negative numbers does not exist, this leaves holes in the data. We used na.rm=TRUE to tell the interpreter to ignore the missing data.
+
+## 10.0 Classes
+Make  a  graph  with  on  the  x-axis:  today,  Sinterklaas  2014  and  your  next  birthday  and  on the y-axis the number of presents you expect on each of these days
+```{r}
+dates=strptime(c("20180216042200", "20141225010000", "20181024010000"), format="%Y%m%d%H%M%S")
+gifts = c(12, 85, 99)
+plot(dates,gifts)
+```
+
+
+
+## 11.2 For-Loop
+
+```{r}
+s =c()
+for(i in 1:100)
+{
+  if (i < 5 | i >90)
+  {
+    s[i] = (i *10)
+  }
+  else
+  {
+    s[i]= i * 0.1
+  }
+}
+s
+
+```
+
+## 11.3 Writing your own Functions
+
+```{r}
+fun1 = function(arg1)
+{
+  s=c()
+for(i in 1:length(arg1))
+{
+  if (i < 5 | i >90)
+  {
+    s[i] = (i *10)
+  }
+  else
+  {
+    s[i]= i * 0.1
+  }
+}
+s
+}
+
+fun1(arg1=seq(from=1, to=100, by=1))
+
+```
+
+
+## Extra ToDo in Footnote
+
+```{r}
+fun1 = function(arg1)
+{
+less = arg1[ arg1 <=5 | arg1 >= 90] * 5
+mid = arg1[ arg1 >=5 | arg1 <= 90] * 0.1 
+arg1 <- c(less,mid)
+}
+
+fun1(arg1=seq(from=1, to=100, by=1))
+```
+
+Sources used:
+
+https://nicercode.github.io/guides/reports/
+https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf
+https://www.dataquest.io/blog/how-to-share-data-science-portfolio/
+
+
